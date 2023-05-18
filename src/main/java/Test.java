@@ -35,7 +35,30 @@ public class Test {
         //time1();
         //parseData("2023-03-13 08:06:28");
         //testNetFail();
-        createTodayFile();
+        //createTodayFile();
+
+
+//        try {
+//            int i = 5;
+//            while (i > 3) {
+//                i -= 1;
+//                System.out.println("hello");
+//                Thread.sleep(30);
+//            }
+//            System.out.println("111");
+//            Thread.sleep(5000);
+//            System.out.println("222");
+//            Thread.sleep(3);
+//            System.out.println("333");
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+
+
+        String str = "[ok],600631,success";
+        String[] array = str.split("\\,");
+        //int num = Integer.parseInt(array[0]);
+        System.out.println(array[1]);
     }
 
     private static final SimpleDateFormat SDF_YYYYMMDD = new SimpleDateFormat("yyyyMMdd");

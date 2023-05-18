@@ -18,31 +18,43 @@ public class DateTimeDemo {
 
     //获取当前月份前一个月的一号
     private static void testLocalDate() {
-        //1.今天
+        //今天
         LocalDate now = LocalDate.now();
         int nowYear = now.getYear();
         int nowMonth = now.getMonthValue();
         int nowDay = now.getDayOfMonth();
-        System.out.println(nowYear + " ; " + nowMonth + " ; " + nowDay);
-        //结果为: 2022 ; 10 ; 27
+        System.out.println("今天: " + nowYear + " ; " + nowMonth + " ; " + nowDay);
+        //结果为: 2023 ; 5 ; 18
 
-        //2.指定日期
+        //昨天
+        LocalDate zt = LocalDate.now().minusDays(1);
+        System.out.println("昨天: " + zt.getYear() + " ; " + zt.getMonthValue() + " ; " + zt.getDayOfMonth());
+        //结果为: 2023 ; 5 ; 17
+
+        //明天
+        LocalDate mt = LocalDate.now().plusDays(1);
+        System.out.println("明天: " + mt.getYear() + " ; " + mt.getMonthValue() + " ; " + mt.getDayOfMonth());
+        //结果为: 2023 ; 5 ; 19
+
+        //指定日期
         //LocalDate date = LocalDate.of(2022, 8, 30);
         LocalDate date = LocalDate.now();
         LocalDate lastMonth = date.minusMonths(1); // 当前月份减1
         LocalDate lastMonthFirstDay = lastMonth.with(TemporalAdjusters.firstDayOfMonth()); // 获取上个月的第一天
         LocalDate lastMonthLastDay = lastMonth.with(TemporalAdjusters.lastDayOfMonth()); // 获取上个月的最后一天
-        System.out.println(date);
-        System.out.println(lastMonth);
-        System.out.println(lastMonthFirstDay);
-        System.out.println(lastMonthLastDay);
+        System.out.println("今天: " + date);
+        System.out.println("当前月份减1: " + lastMonth);
+        System.out.println("上个月的第一天: " + lastMonthFirstDay);
+        System.out.println("上个月的最后一天: " + lastMonthLastDay);
         /*
         结果为:
-        2022 ; 10 ; 27
-        2022-10-27
-        2022-09-27
-        2022-09-01
-        2022-09-30
+        今天: 2023 ; 5 ; 18
+        昨天: 2023 ; 5 ; 17
+        明天: 2023 ; 5 ; 19
+        今天: 2023-05-18
+        当前月份减1: 2023-04-18
+        上个月的第一天: 2023-04-01
+        上个月的最后一天: 2023-04-30
          */
 
 //        LocalDate lastMonthFirstDay2 = LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
