@@ -36,6 +36,11 @@ public class DateTimeDemo {
         System.out.println("明天: " + mt.getYear() + " ; " + mt.getMonthValue() + " ; " + mt.getDayOfMonth());
         //结果为: 2023 ; 5 ; 19
 
+        //十天前
+        LocalDate mtBefore = LocalDate.now().minusDays(10);
+        System.out.println("十天前: " + mtBefore.getYear() + " ; " + mtBefore.getMonthValue() + " ; " + mtBefore.getDayOfMonth());
+        //结果为: 十天前: 2023 ; 5 ; 8
+
         //指定日期
         //LocalDate date = LocalDate.of(2022, 8, 30);
         LocalDate date = LocalDate.now();

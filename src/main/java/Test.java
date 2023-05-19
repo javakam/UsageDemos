@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -55,10 +57,27 @@ public class Test {
 //        }
 
 
-        String str = "[ok],600631,success";
-        String[] array = str.split("\\,");
-        //int num = Integer.parseInt(array[0]);
-        System.out.println(array[1]);
+//        String str = "[ok],600631,success";
+//        String[] array = str.split("\\,");
+//        //int num = Integer.parseInt(array[0]);
+//        System.out.println(array[1]);
+
+
+        String filedate = "20230517203000";//20230517203000
+//        filedate=filedate.substring(0,8);
+//        System.out.println(filedate);
+        filedate = filedate.substring(0, 4) + "-" + filedate.substring(4, 6) + "-" + filedate.substring(6, 8);
+        System.out.println(filedate);
+
+        final LocalDate datePublish = LocalDate.parse(filedate);
+        System.out.println("日期: " + datePublish + "  一个月前 : " + datePublish.minusMonths(1) + "  31天前: " + datePublish.minusDays(31));
+        LocalDate START_DATE_CAIJI = LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        System.out.println("上个月一号:" + START_DATE_CAIJI.getYear() + "=" + START_DATE_CAIJI.getMonthValue() + "=" + START_DATE_CAIJI.getDayOfMonth());
+        if (datePublish.isBefore(START_DATE_CAIJI)) {
+            System.out.println("111");
+        } else {
+            System.out.println("222");
+        }
     }
 
     private static final SimpleDateFormat SDF_YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
