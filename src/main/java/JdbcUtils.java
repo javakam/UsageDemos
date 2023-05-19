@@ -21,7 +21,7 @@ public final class JdbcUtils {
     /**
      * 结果集处理器
      */
-    public static interface ResultSetHandler<T> {
+    public interface ResultSetHandler<T> {
         /**
          * 将一个结果集转换成T类型
          *
@@ -34,7 +34,7 @@ public final class JdbcUtils {
     /**
      * 列处理器
      */
-    public static interface ColumnHandler<T> {
+    public interface ColumnHandler<T> {
         /**
          * @param method     根据列名自动匹配的方法名
          * @param columnName 列名
@@ -140,7 +140,7 @@ public final class JdbcUtils {
      * @param password
      * @return
      */
-    public static final Connection getConnection(String driver, String url, String user, String password) {
+    public static Connection getConnection(String driver, String url, String user, String password) {
         try {
             Class.forName(driver);
             return DriverManager.getConnection(url, user, password);
@@ -160,7 +160,7 @@ public final class JdbcUtils {
      * @param password
      * @return
      */
-    public static final Connection getConnection(String url, String user, String password) {
+    public static Connection getConnection(String url, String user, String password) {
         return getConnection(MYSQL8_DRIVER, url, user, password);
     }
 
@@ -172,7 +172,7 @@ public final class JdbcUtils {
      * @param args
      * @return
      */
-    private static final ResultSet query(Connection conn, String sql, Object[] args) {
+    private static ResultSet query(Connection conn, String sql, Object[] args) {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             if (args != null) {
@@ -197,7 +197,7 @@ public final class JdbcUtils {
      * @param args
      * @return
      */
-    public static final <T> T query(Connection conn, ResultSetHandler<T> handler, String sql, Object[] args) {
+    public static <T> T query(Connection conn, ResultSetHandler<T> handler, String sql, Object[] args) {
         ResultSet rs = query(conn, sql, args);
         return handler.handle(rs);
     }
@@ -207,7 +207,7 @@ public final class JdbcUtils {
      *
      * @return 返回受影响的行数
      */
-    public static final int update(Connection conn, String sql, Object[] args) {
+    public static int update(Connection conn, String sql, Object[] args) {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             if (args != null) {
@@ -226,7 +226,7 @@ public final class JdbcUtils {
     /**
      * 关闭数据库连接
      */
-    public static final void closeConnection(AutoCloseable closeable) {
+    public static void closeConnection(AutoCloseable closeable) {
         if (closeable != null) {
             try {
                 closeable.close();

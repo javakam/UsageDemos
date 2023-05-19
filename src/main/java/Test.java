@@ -62,22 +62,24 @@ public class Test {
 //        //int num = Integer.parseInt(array[0]);
 //        System.out.println(array[1]);
 
+        checkCaijiDb();
+        //caijiDb();
 
-        String filedate = "20230517203000";//20230517203000
-//        filedate=filedate.substring(0,8);
+//        String filedate = "20230517203000";//20230517203000
+////        filedate=filedate.substring(0,8);
+////        System.out.println(filedate);
+//        filedate = filedate.substring(0, 4) + "-" + filedate.substring(4, 6) + "-" + filedate.substring(6, 8);
 //        System.out.println(filedate);
-        filedate = filedate.substring(0, 4) + "-" + filedate.substring(4, 6) + "-" + filedate.substring(6, 8);
-        System.out.println(filedate);
-
-        final LocalDate datePublish = LocalDate.parse(filedate);
-        System.out.println("日期: " + datePublish + "  一个月前 : " + datePublish.minusMonths(1) + "  31天前: " + datePublish.minusDays(31));
-        LocalDate START_DATE_CAIJI = LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
-        System.out.println("上个月一号:" + START_DATE_CAIJI.getYear() + "=" + START_DATE_CAIJI.getMonthValue() + "=" + START_DATE_CAIJI.getDayOfMonth());
-        if (datePublish.isBefore(START_DATE_CAIJI)) {
-            System.out.println("111");
-        } else {
-            System.out.println("222");
-        }
+//
+//        final LocalDate datePublish = LocalDate.parse(filedate);
+//        System.out.println("日期: " + datePublish + "  一个月前 : " + datePublish.minusMonths(1) + "  31天前: " + datePublish.minusDays(31));
+//        LocalDate START_DATE_CAIJI = LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+//        System.out.println("上个月一号:" + START_DATE_CAIJI.getYear() + "=" + START_DATE_CAIJI.getMonthValue() + "=" + START_DATE_CAIJI.getDayOfMonth());
+//        if (datePublish.isBefore(START_DATE_CAIJI)) {
+//            System.out.println("111");
+//        } else {
+//            System.out.println("222");
+//        }
     }
 
     private static final SimpleDateFormat SDF_YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
@@ -233,8 +235,34 @@ public class Test {
         return true;
     }
 
+    /*
+    2023年5月19日 14:08:51 结果
+    连接成功！1
+    closed
+     */
+    private static void checkCaijiDb() {
+        Connection conn = JdbcUtils.getConnection("jdbc:mysql://192.168.10.50:3306/java_kcb_caiji", "root", "123456");
+        String sql = "select 1";
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conn.prepareStatement(sql);
+            final ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int val = rs.getInt(1);
+                System.out.println("连接成功！" + val);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.closeConnection(preparedStatement);
+            JdbcUtils.closeConnection(conn);
+            System.out.println("closed");
+        }
+    }
+
     private static void caijiDb() {
-        Connection conn = JdbcUtils.getConnection("jdbc:mysql://192.168.10.50/java_kcb_caiji", "root", "123456");
+        Connection conn = JdbcUtils.getConnection("jdbc:mysql://192.168.10.50:3306/java_kcb_caiji", "root", "123456");
         String sql = "select * from caiji";
 
         PreparedStatement preparedStatement = null;
@@ -248,7 +276,7 @@ public class Test {
                 System.out.println("连接成功！");
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } finally {
             JdbcUtils.closeConnection(preparedStatement);
             JdbcUtils.closeConnection(conn);
