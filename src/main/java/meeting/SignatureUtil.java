@@ -51,5 +51,21 @@ public interface SignatureUtil {
         return new String(Base64.getEncoder().encode(hexHash.getBytes(StandardCharsets.UTF_8)));
     }
 
+    private static String getZqrbSign() {
+        String sign = "";
+        try {
+            sign = sign("26140159221", "M9a7E9Ni4brSQuDYb1G6eoaeRLQbhqiA", "POST",
+                    "headerNonce", System.currentTimeMillis() + "",//"headerTimestamp"
+                    "/v1/meetings", "");
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+        return sign;
+    }
+
+    public static void main(String[] args) {
+        String rs = getZqrbSign();
+        System.out.println("签名: \n" + rs);
+    }
 
 }
