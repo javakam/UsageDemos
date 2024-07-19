@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,7 +63,7 @@ public class Test {
 //        //int num = Integer.parseInt(array[0]);
 //        System.out.println(array[1]);
 
-        checkCaijiDb();
+        //checkCaijiDb();
         //caijiDb();
 
 //        String filedate = "20230517203000";//20230517203000
@@ -80,6 +81,14 @@ public class Test {
 //        } else {
 //            System.out.println("222");
 //        }
+
+        System.out.println(isNight());
+
+    }
+
+    private static boolean isNight() {
+        final LocalTime localTime = LocalTime.now().withNano(0).withSecond(0).withMinute(0);
+        return localTime.equals(LocalTime.parse("08:00")) || localTime.equals(LocalTime.parse("10:00"));
     }
 
     private static final SimpleDateFormat SDF_YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
@@ -147,9 +156,9 @@ public class Test {
 //                        .setConnectTimeout(10000)
 //                        .setConnectionRequestTimeout(10000)
 //                        .setSocketTimeout(10000)
-//                        .build());
+//                        .buildxxx());
 //
-//                final HttpResponse response = HttpClientBuilder.create().build().execute(request);
+//                final HttpResponse response = HttpClientBuilder.create().buildxxx().execute(request);
 //                int statusCode = response.getStatusLine().getStatusCode();
 //                boolean isSuccess = String.valueOf(statusCode).startsWith("20");
 //                System.out.println("状态码:" + statusCode);
