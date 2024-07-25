@@ -54,8 +54,8 @@ public interface SignatureUtil {
     private static String getZqrbSign() {
         String sign = "";
         try {
-            sign = sign("26140159221", "M9a7E9Ni4brSQuDYb1G6eoaeRLQbhqiA", "POST",
-                    "headerNonce", System.currentTimeMillis() + "",//"headerTimestamp"
+            sign = sign("26140159221", "M9a7E9Ni4brSQuDYb1G6eoaeRLQbhqiA", "GET",
+                    "headerNonce", System.currentTimeMillis()/1000 + "",//"headerTimestamp"
                     "/v1/meetings", "");
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException(e);
@@ -65,7 +65,7 @@ public interface SignatureUtil {
 
     public static void main(String[] args) {
         String rs = getZqrbSign();
-        System.out.println("签名: \n" + rs);
+        System.out.println("签名: \n" + rs+" ; "+System.currentTimeMillis());
     }
 
 }
